@@ -2,18 +2,21 @@ package projetoGerenciaConsultas;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 public class Consulta {
 	
 	Paciente paciente;
-	LocalDate data;
+	DateTime data_consulta;
 	String hora;
 	Medico medico;
-	
-	public Consulta(Paciente paciente, LocalDate data, String hora, Medico medico) {
+
+	public Consulta(Paciente paciente, DateTime data, Medico medico) {
 		
 		this.paciente = paciente;
-		this.data = data;
+		this.data_consulta = data;
 		this.hora = hora;
 		this.medico = medico;
 	}
@@ -26,13 +29,10 @@ public class Consulta {
 		this.paciente = paciente;
 	}
 
-	public LocalDate getData() {
-		return data;
+	public DateTime getData() {
+		return data_consulta;
 	}
 
-	public void setData(String data) {
-		this.data = LocalDate.parse(data);
-	}
 
 	public String getHora() {
 		return hora;
@@ -51,16 +51,18 @@ public class Consulta {
 	}
 	
 	public String toString() {
-		String s = "\n" +
-				   "|  Data: "     + this.data + " Hora: " + this.hora + 
-				   "  |  Paciente: " + this.paciente.getNome() +    // pega o nome do paciente da consulta	   
-				   "  |  Médico: "   + this.medico.getNome() + "  |";		  // pega o nome do medico da consulta	   
+		DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/YYYY");
+		LocalTime horario = new LocalTime(this.data_consulta);
+		String s = "\n|  Data: "     + fmt.print(this.data_consulta) +
+				   "\n| Hora: " + horario.toString("HH:mm") +    // pega o nome do paciente da consulta
+				   "\n|  Paciente: " + this.paciente.getNome() +    // pega o nome do paciente da consulta
+				   "\n|  Médico: "   + this.medico.getNome() + "  |";		  // pega o nome do medico da consulta
 				   
 		return s;
 	}
 
 	public void AtualizaHistorico(String informacao) {;
-		String entradaHistorico = "Consulta realizada em "     + this.data + " Hora: " + this.hora + 
+		String entradaHistorico = "Consulta realizada em "     + this.data_consulta + " Hora: "+
  				   				  "\n com o médico "   + this.medico.getNome() + " ("+ this.medico.getEspecialidade() + ")" +
  				   				  "\n Relatório da consulta: " + informacao;	   
 				   

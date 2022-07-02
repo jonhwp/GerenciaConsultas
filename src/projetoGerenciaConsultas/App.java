@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+import static projetoGerenciaConsultas.Data.define_data;
+
 
 public class App {
 
@@ -224,19 +226,13 @@ public class App {
                 // Estas mensagens serão utilizadas apenas para exibir informações
                 /* para o usuário final.
                  */
-                LocalDate dataConsulta = LocalDate.parse("Digite a data da consulta (formato DD/MM/YYYY): ");
-                String msgEntradaHora = "Digite a hora da consulta (formato hh:mm) : ";
-
-                //String dataConsulta = Console.leString(msgEntradaData);
-                String horaConsulta = Console.leString(msgEntradaHora);
-
+                DateTime dataConsulta = new DateTime(define_data());
 
                 // Cria uma nova consulta
 
                 Consulta c = new Consulta(
                         pacienteConsulta,
                         dataConsulta,
-                        horaConsulta,
                         medicoConsulta);
 
                 // Adiciona na lista de consultas

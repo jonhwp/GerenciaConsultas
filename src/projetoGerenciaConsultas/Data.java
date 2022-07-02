@@ -6,21 +6,22 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Data {
-    public static void  define_data(){
+    public static DateTime  define_data(){
 
         // altera o formato toString da chasse:
         DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/YYYY");
+        LocalDate hoje = new LocalDate();
+        LocalTime agora = new LocalTime();
+        int dia = 0;
+        int mes = 0;
+        int ano = hoje.getYear();
+        int hora;
+        int minutos;
 
         int confirma = 1;
         while (true) {
             // Instancia uma data atual para comparação.
-            LocalDate hoje = new LocalDate();
-            LocalTime agora = new LocalTime();
-            boolean valida = true;
-            int dia = 0;
-            int mes = 0;
-            int hora;
-            int minutos;
+
             LocalTime hora_consulta;
             LocalDate data;
             while (true) {
@@ -38,7 +39,7 @@ public class Data {
                 }
 
                 // valida se a data é anterior a atual.
-                int ano = hoje.getYear();
+
                 data = new LocalDate(ano, mes, dia);
                 Days d = Days.daysBetween(hoje, data);
                 while (d.getDays() < 0) {
@@ -75,6 +76,7 @@ public class Data {
                 }
                 int valor = Console.leInteiro("\nEscolha uma das opções acima.");
                 hora_consulta = new LocalTime();
+
                 switch (valor) {
                     case 1:
                         hora_consulta = new LocalTime(hora, 00);
@@ -91,14 +93,18 @@ public class Data {
                     default:
                         break;
                 }
+                minutos = hora_consulta.getMinuteOfHour();
                 break;
             }
 
             // Confirma com o cliente a data definida.
+            DateTime confirmaData = new DateTime(ano, mes, dia, hora, minutos, 0, 0);
             confirma = Console.leInteiro("Você gostaria de confirmar o dia " + fmt.print(data) + " às "+hora_consulta.toString("HH:mm")+ " para sua consulta?\n1 - sim\n2 - não");
+
+
             if (confirma == 1) {
                 System.out.println("A data foi definida com sucesso!");
-                break;
+                return confirmaData;
             }
 
         }
