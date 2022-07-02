@@ -53,10 +53,11 @@ public class Consulta {
 	public String toString() {
 		DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/YYYY");
 		LocalTime horario = new LocalTime(this.data_consulta);
-		String s = "\n|  Data: "     + fmt.print(this.data_consulta) +
-				   "\n| Hora: " + horario.toString("HH:mm") +    // pega o nome do paciente da consulta
-				   "\n|  Paciente: " + this.paciente.getNome() +    // pega o nome do paciente da consulta
-				   "\n|  Médico: "   + this.medico.getNome() + "  |";		  // pega o nome do medico da consulta
+
+		String s = "\n|  Data: "     + fmt.print(this.data_consulta) +	// pega a data da consulta
+				   "\n|  Hora: " + horario.toString("HH:mm") +    	// pega o horário da consulta
+				   "\n|  Paciente: " + this.paciente.getNome() +    	// pega o nome do paciente da consulta
+				   "\n|  Médico: "   + this.medico.getNome() + "  |";	// pega o nome do medico da consulta
 				   
 		return s;
 	}

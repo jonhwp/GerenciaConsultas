@@ -258,4 +258,8 @@ public class App {
 			   ArrayList<Consulta> listaConsultas) {
 
 	}
+
+    public static void buscarPessoa(ArrayList<Paciente> listaPacientes){
+
+    }
 }
