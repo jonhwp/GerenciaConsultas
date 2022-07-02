@@ -11,7 +11,7 @@ public class Data {
         // altera o formato toString da chasse:
         DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/YYYY");
         LocalDate hoje = new LocalDate();
-        LocalTime agora = new LocalTime();
+        LocalTime agora;
         int dia = 0;
         int mes = 0;
         int ano = hoje.getYear();
@@ -42,28 +42,36 @@ public class Data {
 
                 data = new LocalDate(ano, mes, dia);
                 Days d = Days.daysBetween(hoje, data);
-                while (d.getDays() < 0) {
-                    System.out.println("Ops, hoje é dia "+fmt.print(hoje)+"." +
+                int dias = d.getDays();
+                while (dias < 0) {
+                    System.out.println("\nOps, hoje é dia "+fmt.print(hoje)+"." +
                             "\nVocê escolheu uma data que já passou." +
                             "\nVamos tentar novamente.\n");
+
                     // definindo um dia
                     dia = Console.leInteiro("Defina um dia para consulta:");
                     while (!(dia > 0 && dia < 32)) {
-                        dia = Console.leInteiro("Dia inexistente, tente novamente. Qual o melhor dia para consulta? ");
+                        dia = Console.leInteiro("Dia inexistente, tente novamente. Qual o melhor dia para a consulta? ");
                     }
+
                     // definindo um mês
                     mes = Console.leInteiro("Defina um mês para consulta:");
                     while (!(mes > 0 && mes <= 12)) {
-                        mes = Console.leInteiro("Mês inexistente, tente novamente. Qual o melhor mês para consulta? ");
+                        mes = Console.leInteiro("Mês inexistente, tente novamente. Qual o melhor mês para a consulta? ");
                     }
-                    break;
+                    data = new LocalDate(ano, mes, dia);
+                    d = Days.daysBetween(hoje, data);
+                    dias = d.getDays();
+                    if (dias > 0){
+                        break;
+                    }
                 }
 
                 // defindo hora
                 System.out.println("Nosso horário de atendimento é das 8:00 às 18:00 horas.");
                 hora = Console.leInteiro("Qual o melhor horário para sua consulta?");
                 while (!(hora > 7 && hora <= 18)) {
-                    mes = Console.leInteiro("Hora indisponível, tente novamente. Qual o melhor horário para a consulta? ");
+                    hora = Console.leInteiro("Hora indisponível, tente novamente. Qual o melhor horário para a consulta? ");
                 }
 
                 // defindo minutos
